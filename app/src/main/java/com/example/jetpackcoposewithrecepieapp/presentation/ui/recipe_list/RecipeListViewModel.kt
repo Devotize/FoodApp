@@ -22,6 +22,7 @@ class RecipeListViewModel
     val recipes: MutableState<List<Recipe>> = mutableStateOf(ArrayList())
     val query = mutableStateOf("")
     val selectedCategory: MutableState<FoodCategory?> = mutableStateOf(null)
+    val isLoadingFood: MutableState<Boolean> = mutableStateOf(false)
     var categoryScrollPosition: Float = 0f
 
     init {
@@ -29,10 +30,22 @@ class RecipeListViewModel
     }
 
     fun newSearch() {
+        isLoadingFood.value = true
+        resetSearchState()
         viewModelScope.launch {
             val result = repository.search(token, 1, query.value)
             recipes.value = result
+            isLoadingFood.value = false
         }
+    }
+
+    private fun resetSearchState() {
+        recipes.value = listOf()
+        if (selectedCategory.value?.value != query.value) clearSelectedCategory()
+    }
+
+    private fun clearSelectedCategory() {
+        selectedCategory.value = null
     }
 
     fun onQueryChanged(query: String){
