@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.jetpackcoposewithrecepieapp.domain.model.Recipe
 import com.example.jetpackcoposewithrecepieapp.repository.RecipeRepository
 import com.example.jetpackcoposewithrecepieapp.repository.RecipeRepository_Impl
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Named
 
@@ -33,6 +34,7 @@ class RecipeListViewModel
         isLoadingFood.value = true
         resetSearchState()
         viewModelScope.launch {
+            delay(3000)
             val result = repository.search(token, 1, query.value)
             recipes.value = result
             isLoadingFood.value = false

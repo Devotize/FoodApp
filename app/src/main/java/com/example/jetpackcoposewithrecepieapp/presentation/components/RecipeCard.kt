@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.example.jetpackcoposewithrecepieapp.R
 import com.example.jetpackcoposewithrecepieapp.domain.model.Recipe
 import com.example.jetpackcoposewithrecepieapp.util.DEFAULT_RECIPE_IMAGE
-import com.example.jetpackcoposewithrecepieapp.util.LoadPicture
+import com.example.jetpackcoposewithrecepieapp.util.loadPicture
 
 @Composable
 fun RecipeCard(
@@ -36,7 +36,7 @@ fun RecipeCard(
     ) {
         Column {
             recipe.featuredImage?.let {url ->
-                val image = LoadPicture(url = url, defaultImage = DEFAULT_RECIPE_IMAGE).value
+                val image = loadPicture(url = url, defaultImage = DEFAULT_RECIPE_IMAGE).value
                 image?.let {
                     Image(
                         bitmap = image.asImageBitmap(),
